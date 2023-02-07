@@ -1,3 +1,4 @@
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição, Time } from "../types";
 import { Peças } from "../types";
 
@@ -8,6 +9,7 @@ export default class Peça implements Peças.Peça {
   protected movimentos: Posição[] = [];
 
   constructor(
+    protected tabuleiro: Tabuleiro,
     public cor: Time,
     public nome: string,
     posição: Posição,

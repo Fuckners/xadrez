@@ -1,10 +1,16 @@
 import Game from "../game/Game";
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição, Time } from "../types";
 import Peça from "./Padrao";
 
 export default class Peão extends Peça {
-  constructor(cor: Time, posição: Posição, icone: string = "^") {
-    super(cor, "peão", posição, icone);
+  constructor(
+    tabuleiro: Tabuleiro,
+    cor: Time,
+    posição: Posição,
+    icone: string = "^"
+  ) {
+    super(tabuleiro, cor, "peão", posição, icone);
   }
 
   public possiveisMovimentos(): Posição[] {

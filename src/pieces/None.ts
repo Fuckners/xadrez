@@ -1,9 +1,10 @@
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição } from "../types";
 import Peça from "./Padrao";
 
 export default class None extends Peça {
-  constructor(posição: Posição) {
-    super("neutral", "none", posição, " ");
+  constructor(tabuleiro: Tabuleiro, posição: Posição) {
+    super(tabuleiro, "neutral", "none", posição, " ");
   }
 
   public possiveisMovimentos(): Posição[] {

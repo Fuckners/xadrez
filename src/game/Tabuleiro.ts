@@ -39,7 +39,7 @@ export default class Tabuleiro {
       throw new Error("O tabuleiro deve ter no mínimo 1 de largura e 1 de altura.");
 
     return Array.from({ length: altura }, (_, y) =>
-      Array.from({ length: largura }, (_, x) => new None({ x, y }))
+      Array.from({ length: largura }, (_, x) => new None(this, { x, y }))
     );
   }
 

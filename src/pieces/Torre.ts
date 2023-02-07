@@ -1,9 +1,15 @@
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição, Time } from "../types";
 import Peça from "./Padrao";
 
 export default class Torre extends Peça {
-  constructor(cor: Time, posição: Posição, icone: string = "H") {
-    super(cor, "torre", posição, icone);
+  constructor(
+    tabuleiro: Tabuleiro,
+    cor: Time,
+    posição: Posição,
+    icone: string = "H"
+  ) {
+    super(tabuleiro, cor, "torre", posição, icone);
   }
 
   public possiveisMovimentos(): Posição[] {
