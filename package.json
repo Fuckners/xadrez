@@ -1,0 +1,21 @@
+{
+  "name": "xadrez",
+  "version": "1.0.0",
+  "description": "Um jogo de xadrex :)",
+  "main": "dist/app.js",
+  "scripts": {
+    "test": "nodemon src/app.ts"
+  },
+  "author": "Felipe Fuckner",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/chalk": "^2.2.0",
+    "@types/node": "^18.11.19",
+    "nodemon": "^2.0.20",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "chalk": "^4.1.2",
+    "readline-promise": "^1.0.5"
+  }
+}
