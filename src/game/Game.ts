@@ -52,17 +52,9 @@ export default class Game {
       for (let i = 0; i < 2; i++) {
         this.render();
 
-        log(chalk.blueBright(`É a vez do jogador ${jogadores[i].nick}`));
+        this.anunciarJogador(jogadores[i].nick);
 
-        let answer: string;
-        do {
-          answer = await this.question("Qual sua jogada? (0:0 0:0) ");
-        } while (!this.validateAnswer(answer));
-
-        const [_from, _to] = answer.split(" ") as [Move, Move];
-
-        const from = this.readMove(_from);
-        const to = this.readMove(_to);
+        const [from, to] = await this.lerJogada();
 
         this.move(from, to);
 
@@ -74,20 +66,52 @@ export default class Game {
     }
   }
 
-  validateAnswer(answer: string): boolean {
+  protected anunciarJogador(jogador: string) {
+    log(chalk.blueBright(`É a vez do jogador ${jogador}`));
+  }
+
+  protected anunciarMovimento(jogador: string, from: Peça, to: Peça) {
+    if (this.tabuleiro.isAPiece(to.x, to.y) && to.cor !== from.cor)
+      log(
+        chalk.blueBright(
+          `${jogador} moveu ${from.nome} para a posição ${to.x}:${to.y} e matou ${to.nome}`
+        )
+      );
+    else
+      log(chalk.blueBright(`${jogador} moveu ${from.nome} para a posição ${to.x}`));
+  }
+
+  protected async lerJogada(): Promise<[Peça, Peça]> {
+    let answer = await this.question("Qual sua jogada? (0:0 0:0) ");
+
+    if (!this.validateAnswer(answer)) return await this.lerJogada();
+
+    const [_from, _to] = answer.split(" ") as [Move, Move];
+
+    const from = this.formataJogada(_from);
+    const to = this.formataJogada(_to);
+
+    return this.tabuleiro.positionExists(from) || this.tabuleiro.positionExists(to)
+      ? [from, to]
+      : await this.lerJogada();
+  }
+
+  public validateAnswer(answer: string): boolean {
     return /^\d\:\d \d\:\d$/.test(answer);
   }
 
-  readMove(move: `${number}:${number}`): Peça {
+  public formataJogada(move: `${number}:${number}`): Peça {
+    const { tabuleiro } = this;
+
     const [x, y] = move.split(":");
-    const peça = this.tabuleiro.get(Number(x), Number(y));
+    const peça = tabuleiro.get(Number(x), Number(y));
 
     return peça;
   }
 
-  move(from: Peça, to: Peça) {}
+  protected move(from: Peça, to: Peça) {}
 
-  render() {
+  public render() {
     const { rawLayout: layout } = this.tabuleiro;
 
     // clearWindow();
@@ -110,7 +134,7 @@ export default class Game {
     );
   }
 
-  question(pergunta: string): Promise<string> {
+  protected question(pergunta: string): Promise<string> {
     return new Promise((resolve) => {
       this.rl.question(pergunta, resolve);
     });
