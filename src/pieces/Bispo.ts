@@ -1,9 +1,15 @@
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição, Time } from "../types";
 import Peça from "./Padrao";
 
 export default class Bispo extends Peça {
-  constructor(cor: Time, posição: Posição, icone: string = "j") {
-    super(cor, "bispo", posição, icone);
+  constructor(
+    tabuleiro: Tabuleiro,
+    cor: Time,
+    posição: Posição,
+    icone: string = "j"
+  ) {
+    super(tabuleiro, cor, "bispo", posição, icone);
   }
 
   public possiveisMovimentos(): Posição[] {

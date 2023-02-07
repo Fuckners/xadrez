@@ -20,7 +20,7 @@ export default class Peça implements Peças.Peça {
     this.y = posição.y;
   }
 
-  public toString() {
+  public toString(): string {
     return this.icone;
   }
 

@@ -16,7 +16,7 @@ export default class Tabuleiro {
   }
 
   public mover(from: Posição, to: Posição) {
-    if (!this.positionExistis(from))
+    if (!this.positionExists(from))
       throw new Error(
         "Não existe uma peça nessa posição porque a posição não existe no tabuleiro."
       );
@@ -26,7 +26,7 @@ export default class Tabuleiro {
         "Não existe uma peça nessa posição, logo, não é possível move-la."
       );
 
-    if (!this.positionExistis(to))
+    if (!this.positionExists(to))
       throw new Error(
         "Não é possível mover a peça para essa posição porque a posição destino não existe."
       );
@@ -44,7 +44,7 @@ export default class Tabuleiro {
   }
 
   public get(x: number, y: number): Peça {
-    if (!this.positionExistis({ x, y }))
+    if (!this.positionExists({ x, y }))
       throw new Error(
         "Não é possível pegar a peça dessa posição. A posição não existe no tabuleiro."
       );
@@ -52,8 +52,8 @@ export default class Tabuleiro {
     return this.rawLayout[y][x];
   }
 
-  setar<T extends Peça>(peça: T) {
-    if (!this.positionExistis(peça))
+  public setar<T extends Peça>(peça: T) {
+    if (!this.positionExists(peça))
       throw new Error(
         "Não é possível colocar um peça nessa posição. A posição não existe no tabuleiro."
       );
@@ -94,7 +94,7 @@ export default class Tabuleiro {
     return this.get(x, y).nome !== "none";
   }
 
-  protected positionExistis({ x, y }: Posição) {
+  public positionExists({ x, y }: Posição) {
     return x > 0 && x < this.colunas && this.linhas > y && 0 < y;
   }
 

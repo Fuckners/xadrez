@@ -1,9 +1,15 @@
+import Tabuleiro from "../game/Tabuleiro";
 import { Posição, Time } from "../types";
 import Peça from "./Padrao";
 
 export default class Cavalo extends Peça {
-  constructor(cor: Time, posição: Posição, icone: string = "T") {
-    super(cor, "cavalo", posição, icone);
+  constructor(
+    tabuleiro: Tabuleiro,
+    cor: Time,
+    posição: Posição,
+    icone: string = "T"
+  ) {
+    super(tabuleiro, cor, "cavalo", posição, icone);
   }
 
   public possiveisMovimentos(): Posição[] {
